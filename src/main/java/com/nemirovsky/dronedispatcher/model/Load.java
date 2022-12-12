@@ -6,10 +6,10 @@ import org.springframework.data.annotation.Id;
 
 @Data
 @AllArgsConstructor
-public class Medication {
+public class Load {
     @Id
-    private String code;
-    private String name;
-    private Integer weight;
-    private String image;
+    private String id;
+    private Drone drone;
+    private Medication medication;
+    private int quantity;
 }

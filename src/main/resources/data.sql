@@ -1,15 +1,15 @@
 -- Insering initial drones
 
-INSERT INTO drone (id, model, load_weight, battery_left, state)
-VALUES ('D001', 'Lightweight', 100, 100, 'IDLE');
-INSERT INTO drone (id, model, load_weight, battery_left, state)
-VALUES ('D002', 'Middleweight', 200, 100, 'IDLE');
-INSERT INTO drone (id, model, load_weight, battery_left, state)
-VALUES ('D003', 'Cruiserweight', 300, 100, 'IDLE');
-INSERT INTO drone (id, model, load_weight, battery_left, state)
-VALUES ('D004', 'Heavyweight', 500, 100, 'IDLE');
-INSERT INTO drone (id, model, load_weight, battery_left, state)
-VALUES ('D005', 'Heavyweight', 500, 100, 'IDLE');
+INSERT INTO drone (id, model, load, load_max, battery_left, state)
+VALUES ('D001', 'Lightweight', 0, 100, 100, 0);
+INSERT INTO drone (id, model, load, load_max, battery_left, state)
+VALUES ('D002', 'Middleweight', 0, 200, 100, 0);
+INSERT INTO drone (id, model, load, load_max, battery_left, state)
+VALUES ('D003', 'Cruiserweight', 0, 300, 100, 0);
+INSERT INTO drone (id, model, load, load_max, battery_left, state)
+VALUES ('D004', 'Heavyweight', 0, 500, 100, 0);
+INSERT INTO drone (id, model, load, load_max, battery_left, state)
+VALUES ('D005', 'Heavyweight', 0, 500, 100, 0);
 
 -- Insering initial medications
 

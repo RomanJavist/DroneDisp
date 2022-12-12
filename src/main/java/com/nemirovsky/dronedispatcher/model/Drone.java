@@ -10,7 +10,17 @@ public class Drone {
     @Id
     private String id;
     private String model;
-    private Integer loadWeight;
+    private Integer load;
+    private Integer loadMax;
     private Integer batteryLeft;
-    private String state;
+    private DroneStatus state;
+}
+
+enum DroneStatus {
+    IDLE,
+    LOADING,
+    LOADED,
+    DELIVERING,
+    DELIVERED,
+    RETURNING;
 }
