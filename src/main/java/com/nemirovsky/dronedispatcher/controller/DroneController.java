@@ -24,9 +24,9 @@ public class DroneController {
     @Value("${program.version}")
     private String programVersion;
 
-    private String helloString = programName + " " + programVersion;
+    private final String helloString = programName + " " + programVersion;
 
-    private List<Drone> drones = new ArrayList<>();
+    private final List<Drone> drones = new ArrayList<>();
 
     @GetMapping("drones")
     public String getAllDrones(Model model) {
