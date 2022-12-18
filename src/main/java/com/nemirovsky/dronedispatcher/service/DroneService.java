@@ -8,9 +8,11 @@ import java.util.Map;
 
 public interface DroneService {
 
-    List<Drone> getAllDrones();
-    List<Drone> getAvailableDrones();
-    int save(Drone drone);
-    Drone getById(String id);
+    public List<Drone> getAllDrones();
+
+    public List<Drone> getAvailableDrones();
+    public int save(Drone drone);
+
+    public Drone getById(String id);
 
 }
