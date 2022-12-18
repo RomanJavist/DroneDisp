@@ -21,9 +21,37 @@
 
     <div class="starter-template">
         <h1><span th:text="${helloString}"></span></h1>
-        <h2>
-            <span th:text="${drone.toString()}"></span>
-        </h2>
+        <div class="starter-template">
+            <h2><span
+                    th:text="'Drones total count: ' + ${droneCount} + ', available: ' + ${droneAvailableCount}"></span>
+            </h2>
+            <h2><span>SHOW <a th:href="@{/drones}">ALL</a> | <a th:href="@{/drones?available=1}">AVAILABLE</a></span>
+            </h2>
+        </div>
+        <form id="drone-form" action="#" th:action="@{'/drone/' + ${drone.id}}" method="get" th:object="${drone}">
+            <div class="form-group">
+                <label>ID:</label>
+                <input readonly type="text" class="form-control" th:field="*{id}"/><br/>
+                <label>Model:</label>
+                <input required type="text" class="form-control" th:field="*{model}"/><br/>
+                <label>Load max:</label>
+                <input required type="number" class="form-control" th:field="*{loadMax}"/><br/>
+                <label>Load:</label>
+                <input required type="number" class="form-control" th:field="*{load}"/><br/>
+                <label>Battery %:</label>
+                <input required type="number" class="form-control" th:field="*{batteryLeft}"/><br/>
+                <label>State:</label>
+                <select class="form-control" th:field="*{state}">
+                    <option th:each="state : ${T(com.nemirovsky.dronedispatcher.model.DroneState).values()}"
+                            th:value="${state}"
+                            th:text="${state.displayValue}"
+                            th:selected="${drone.state.displayValue}">
+                    </option>
+                </select>
+                <input type="hidden" name="save" value="1"/><br/>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
     </div>
 
 </main>

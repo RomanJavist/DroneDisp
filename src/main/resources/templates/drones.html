@@ -23,13 +23,30 @@
         <h1><span th:text="${helloString}"></span></h1>
     </div>
     <div class="starter-template">
-        <h2><span th:text="'DroneCount: ' + ${droneCount}"></span></h2>
+        <h2><span th:text="'Drones total count: ' + ${droneCount} + ', available: ' + ${droneAvailableCount}"></span></h2>
+        <h2><span>SHOW <a th:href="@{/drones}">ALL</a> | <a th:href="@{/drones?available=1}">AVAILABLE</a></span></h2>
     </div>
 
-    <tr th:each="drone: ${drones}">
-        <td th:text="${drone.id}" />
-        <td th:text="${drone.getModel()}" />
-    </tr>
+    <table class="table table-dark table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Model</th>
+            <th scope="col">Load</th>
+            <th scope="col">Max. load</th>
+            <th scope="col">Battery, %</th>
+            <th scope="col">State</th>
+        </tr>
+        </thead>
+        <tr th:each="drone: ${drones}">
+            <td><a th:href="@{'/drone/' + ${drone.id}}" th:text="${drone.id}"/></td>
+            <td th:text="${drone.model}"/>
+            <td th:text="${drone.load}"/>
+            <td th:text="${drone.loadMax}"/>
+            <td th:text="${drone.batteryLeft}"/>
+            <td th:text="${drone.state}"/>
+        </tr>
+    </table>
 
 </main>
 <!-- /.container -->

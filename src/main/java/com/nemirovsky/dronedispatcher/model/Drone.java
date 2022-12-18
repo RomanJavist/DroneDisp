@@ -20,6 +20,6 @@ public class Drone {
     private Integer loadMax;
     @Column(name = "battery_left")
     private Integer batteryLeft;
-    private DroneStatus state;
+    private DroneState state;
 }
 

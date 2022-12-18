@@ -1,7 +1,7 @@
 package com.nemirovsky.dronedispatcher.service.impl;
 
 import com.nemirovsky.dronedispatcher.model.Drone;
-import com.nemirovsky.dronedispatcher.model.DroneStatus;
+import com.nemirovsky.dronedispatcher.model.DroneState;
 import com.nemirovsky.dronedispatcher.repository.DroneJpaRepository;
 import com.nemirovsky.dronedispatcher.service.DroneService;
 import lombok.RequiredArgsConstructor;
@@ -21,17 +21,15 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public List<Drone> getAvailableDrones() {
-        return droneJpaRepository.findAll();
-    }
+    public List<Drone> findByState(DroneState state) { return droneJpaRepository.findByState(state); };
 
     @Override
-    public int save(Drone drone) {
-        return 0;
+    public Drone save(Drone drone) {
+        return droneJpaRepository.save(drone);
     }
 
     @Override
     public Drone getById(String id) {
-        return droneJpaRepository.findById(id).orElse(new Drone("D000", "Lightweight", 0, 100, 100, DroneStatus.IDLE));
+        return droneJpaRepository.findById(id).orElse(new Drone("D000", "Lightweight", 0, 100, 100, DroneState.IDLE));
     }
 }
