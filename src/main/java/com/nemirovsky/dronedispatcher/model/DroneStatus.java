@@ -1,7 +1,7 @@
 package com.nemirovsky.dronedispatcher.model;
 
 public enum DroneStatus {
-    IDLE,
+    IDLE, // 0
     LOADING,
     LOADED,
     DELIVERING,
