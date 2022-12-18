@@ -28,8 +28,6 @@ public class DroneController {
 
     private final String helloString = "DroneDispatcher v1.0";
 
-    private String errMsg = new String();
-
     @GetMapping("drones")
     public ModelAndView getAllDrones(@RequestParam(required = false, name = "available") boolean available) {
 
@@ -53,13 +51,25 @@ public class DroneController {
                                  @ModelAttribute("drone") Drone newDrone) {
 
         Drone drone = droneService.getById(id);
+        String errMsg = null;
 
         if (action != null) {
 
             switch (action) {
                 case "save" -> {
+                    if (newDrone.getBatteryLeft() > 100 || newDrone.getBatteryLeft() < 0) {
+                        errMsg = "Battery left in percent should be between 0 and 100!";
+                        return newDrone(errMsg);
+                    }
+                    if (newDrone.getLoadMax() > 1000 || newDrone.getLoadMax() < 100) {
+                        errMsg = "Maximum load of a drone should be between 100 and 1000 grams!";
+                        return newDrone(errMsg);
+                    }
+                    if (newDrone.getLoad() > newDrone.getLoadMax() || newDrone.getLoad() < 0) {
+                        errMsg = "Initial load of a drone should be between 0 and maximum load!";
+                        return newDrone(errMsg);
+                    }
                     droneService.save(newDrone);
-                    drone = newDrone;
                 }
                 case "add" -> {
                     Integer weight = medicationService.getByCode(code).getWeight();
@@ -94,9 +104,9 @@ public class DroneController {
             }
         }
 
-        if (drone == null) return new ModelAndView("drones");
-
-        drone = droneService.getById(id);
+        drone = action == "save" ? newDrone : droneService.getById(id);
+        Boolean unlockMedication = drone.getState() == DroneState.IDLE;
+        Boolean showMedication = true;
 
         List<Medication> medications = medicationService.getAllMedications();
         Map<Medication, Integer> loads = loadService.getLoad(drone);
@@ -108,19 +118,27 @@ public class DroneController {
         mav.addObject("medications", medications);
         mav.addObject("loads", loads);
         mav.addObject("errMsg", errMsg);
+        mav.addObject("showMedication", showMedication);
+        mav.addObject("unlockMedication", unlockMedication);
 
         return mav;
     }
 
     @GetMapping("drone-new")
-    public ModelAndView newDrone() {
+    public ModelAndView newDrone(String errMsg) {
 
         Drone drone = new Drone(droneService.getNextId(), DroneType.LIGHT, 0, 100, 100, DroneState.IDLE);
+
+        Boolean showMedication = false;
+        Boolean unlockMedication = false;
 
         ModelAndView mav = new ModelAndView("drone");
 
         mav.addObject("helloString", helloString);
         mav.addObject("drone", drone);
+        mav.addObject("showMedication", showMedication);
+        mav.addObject("unlockMedication", unlockMedication);
+        mav.addObject("errMsg", errMsg);
 
         return mav;
     }
