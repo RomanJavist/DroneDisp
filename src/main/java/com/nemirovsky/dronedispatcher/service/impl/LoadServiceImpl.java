@@ -3,7 +3,6 @@ package com.nemirovsky.dronedispatcher.service.impl;
 import com.nemirovsky.dronedispatcher.model.Drone;
 import com.nemirovsky.dronedispatcher.model.Load;
 import com.nemirovsky.dronedispatcher.model.Medication;
-import com.nemirovsky.dronedispatcher.repository.DroneJpaRepository;
 import com.nemirovsky.dronedispatcher.repository.LoadJpaRepository;
 import com.nemirovsky.dronedispatcher.service.LoadService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +30,9 @@ public class LoadServiceImpl implements LoadService {
     public Load save(Load load) {
         return loadJpaRepository.save(load);
     }
+
+    @Override
+    public void delete(Load load) { loadJpaRepository.delete(load);};
 
     @Override
     public Load getLoadByDroneAndMedication(Drone drone, Medication medication) {

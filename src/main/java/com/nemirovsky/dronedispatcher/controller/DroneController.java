@@ -70,6 +70,7 @@ public class DroneController {
                         return newDrone(errMsg);
                     }
                     droneService.save(newDrone);
+                    return getAllDrones(false);
                 }
                 case "add" -> {
                     Integer weight = medicationService.getByCode(code).getWeight();
@@ -99,7 +100,8 @@ public class DroneController {
                     droneService.save(drone);
                     Load load = loadService.getLoadByDroneAndMedication(drone, medicationService.getByCode(code));
                     load.setQuantity(qty - 1);
-                    loadService.save(load);
+                    if (load.getQuantity() == 0) loadService.delete(load);
+                    else loadService.save(load);
                 }
             }
         }

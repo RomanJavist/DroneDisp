@@ -14,6 +14,7 @@ public interface LoadService {
 
     Load save(Load load);
 
+    void delete(Load load);
     Load getLoadByDroneAndMedication(Drone drone, Medication medication);
 
 }

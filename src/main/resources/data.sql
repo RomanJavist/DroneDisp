@@ -1,4 +1,4 @@
--- Insering initial drones
+-- Inserting initial drones
 
 INSERT INTO drone (id, type, load, load_max, battery_left, state)
 VALUES ('D001', 0, 0, 100, 100, 0);
@@ -11,7 +11,7 @@ VALUES ('D004', 3, 0, 500, 100, 0);
 INSERT INTO drone (id, type, load, load_max, battery_left, state)
 VALUES ('D005', 3, 0, 500, 100, 0);
 
--- Insering initial medications
+-- Inserting initial medications
 
 INSERT INTO medication (code, name, weight)
 VALUES ('M001', 'Medication #1', 10);
