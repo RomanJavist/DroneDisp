@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Drone {
     @Id
     private String id;
-    private String model;
+    private DroneType type;
     private Integer load;
     @Column(name = "load_max")
     private Integer loadMax;

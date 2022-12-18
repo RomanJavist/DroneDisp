@@ -31,7 +31,7 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
-            <th scope="col">Model</th>
+            <th scope="col">Type</th>
             <th scope="col">Load</th>
             <th scope="col">Max. load</th>
             <th scope="col">Battery, %</th>
@@ -40,14 +40,16 @@
         </thead>
         <tr th:each="drone: ${drones}">
             <td><a th:href="@{'/drone/' + ${drone.id}}" th:text="${drone.id}"/></td>
-            <td th:text="${drone.model}"/>
+            <td th:text="${drone.type.displayValue}"/>
             <td th:text="${drone.load}"/>
             <td th:text="${drone.loadMax}"/>
             <td th:text="${drone.batteryLeft}"/>
-            <td th:text="${drone.state}"/>
+            <td th:text="${drone.state.displayValue}"/>
         </tr>
     </table>
-
+    <div class="starter-template">
+        <h2><span>ADD <a th:href="@{/drone-new}">NEW</a> DRONE</a></span></h2>
+    </div>
 </main>
 <!-- /.container -->
 

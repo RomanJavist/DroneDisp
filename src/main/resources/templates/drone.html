@@ -32,9 +32,14 @@
             <div class="form-group">
                 <label>ID:</label>
                 <input readonly type="text" class="form-control" th:field="*{id}"/><br/>
-                <label>Model:</label>
-                <input required type="text" class="form-control" th:field="*{model}"/><br/>
-                <label>Load max:</label>
+                <label>Type:</label>
+                <select class="form-control" th:field="*{type}">
+                    <option th:each="type : ${T(com.nemirovsky.dronedispatcher.model.DroneType).values()}"
+                            th:value="${type}"
+                            th:text="${type.displayValue}"
+                            th:selected="${drone.type.displayValue}">
+                    </option>
+                </select>                <label>Load max:</label>
                 <input required type="number" class="form-control" th:field="*{loadMax}"/><br/>
                 <label>Load:</label>
                 <input required type="number" class="form-control" th:field="*{load}"/><br/>

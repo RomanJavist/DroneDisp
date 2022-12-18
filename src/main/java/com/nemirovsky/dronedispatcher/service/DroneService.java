@@ -15,4 +15,6 @@ public interface DroneService {
 
     public Drone getById(String id);
 
+    public String getNextId();
+
 }

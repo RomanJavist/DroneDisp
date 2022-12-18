@@ -21,7 +21,11 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public List<Drone> findByState(DroneState state) { return droneJpaRepository.findByState(state); };
+    public List<Drone> findByState(DroneState state) {
+        return droneJpaRepository.findByState(state);
+    }
+
+    ;
 
     @Override
     public Drone save(Drone drone) {
@@ -30,6 +34,15 @@ public class DroneServiceImpl implements DroneService {
 
     @Override
     public Drone getById(String id) {
-        return droneJpaRepository.findById(id).orElse(new Drone("D000", "Lightweight", 0, 100, 100, DroneState.IDLE));
+        return droneJpaRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public String getNextId() {
+        String maxId = droneJpaRepository.findMaxIdDrone().getId();
+        char lastChar = maxId.charAt(maxId.length() - 1);
+        char newlastChar = (char) (lastChar + 1);
+        return maxId.substring(0, maxId.length() - 1) + newlastChar;
+    };
+
 }

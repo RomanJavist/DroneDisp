@@ -2,6 +2,7 @@ package com.nemirovsky.dronedispatcher.controller;
 
 import com.nemirovsky.dronedispatcher.model.Drone;
 import com.nemirovsky.dronedispatcher.model.DroneState;
+import com.nemirovsky.dronedispatcher.model.DroneType;
 import com.nemirovsky.dronedispatcher.service.DroneService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,18 @@ public class DroneController {
         }
 
         if (drone == null) return new ModelAndView("drones");
+
+        ModelAndView mav = new ModelAndView("drone");
+
+        mav.addObject("helloString", helloString);
+        mav.addObject("drone", drone);
+
+        return mav;
+    }
+    @GetMapping("drone-new")
+    public ModelAndView newDrone() {
+
+        Drone drone = new Drone(droneService.getNextId(), DroneType.LIGHT, 0, 100,100, DroneState.IDLE);
 
         ModelAndView mav = new ModelAndView("drone");
 
