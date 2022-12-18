@@ -1,11 +1,9 @@
 package com.nemirovsky.dronedispatcher.service.impl;
 
 import com.nemirovsky.dronedispatcher.model.Medication;
-import com.nemirovsky.dronedispatcher.repository.DroneJpaRepository;
 import com.nemirovsky.dronedispatcher.repository.MedicationJpaRepository;
 import com.nemirovsky.dronedispatcher.service.MedicationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +16,11 @@ public class MedicationServiceImpl implements MedicationService {
 
     @Override
     public List<Medication> getAllMedications() {
-        return null;
+        return medicationJpaRepository.findAll();
     }
 
     @Override
     public Medication getByCode(String code) {
-        return null;
+        return medicationJpaRepository.findById(code).orElse(null);
     }
 }

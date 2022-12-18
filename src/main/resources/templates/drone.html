@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Drone Dispatcher v0.1</title>
+    <title>Drone Dispatcher</title>
 
-    <link rel="stylesheet" th:href="@{webjars/bootstrap/4.2.1/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/main.css}"/>
 
 </head>
@@ -20,19 +20,73 @@
 <main role="main" class="container">
 
     <div class="starter-template">
-        <h1>Drone Dispatcher v0.1</h1>
-        <h2>
-            <span th:text="'Hello, ' + ${username}"></span>
-        </h2>
-    </div>
-
-    <ol>
-        <li th:each="Drones : ${drones}" th:text="${drone}"></li>
-    </ol>
+        <h1><span th:text="${helloString}"></span></h1>
+        <div class="starter-template">
+            <h2><span>SHOW <a th:href="@{/drones}">ALL</a> | <a th:href="@{/drones?available=1}">AVAILABLE</a></span>
+            </h2>
+            <h2><span th:if="${errMsg}" th:text="${errMsg}"></span></h2>
+        </div>
+        <form id="drone-form" action="#" th:action="@{'/drone/' + ${drone.id}}" method="get" th:object="${drone}">
+            <div class="form-group">
+                <label>ID:</label>
+                <input readonly type="text" class="form-control" th:field="*{id}"/><br/>
+                <label>Type:</label>
+                <select class="form-control" th:field="*{type}">
+                    <option th:each="type : ${T(com.nemirovsky.dronedispatcher.model.DroneType).values()}"
+                            th:value="${type}"
+                            th:text="${type.displayValue}"
+                            th:selected="${drone.type.displayValue}">
+                    </option>
+                </select> <label>Load max:</label>
+                <input required type="number" class="form-control" th:field="*{loadMax}"/><br/>
+                <label>Load:</label>
+                <input required type="number" class="form-control" th:field="*{load}"/><br/>
+                <label>Battery %:</label>
+                <input required type="number" class="form-control" th:field="*{batteryLeft}"/><br/>
+                <label>State:</label>
+                <select class="form-control" th:field="*{state}">
+                    <option th:each="state : ${T(com.nemirovsky.dronedispatcher.model.DroneState).values()}"
+                            th:value="${state}"
+                            th:text="${state.displayValue}"
+                            th:selected="${drone.state.displayValue}">
+                    </option>
+                </select>
+                <input type="hidden" name="action" value="save"/><br/>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+        <div th:if="${showMedication}" class="starter-template">
+            <table class="table table-dark table-hover align-middle">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Weight (g)</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Loaded</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tr th:each="medication: ${medications}">
+                    <td th:text="${medication.code}"/>
+                    <td th:text="${medication.name}"/>
+                    <td th:text="${medication.weight}"/>
+                    <td><img th:src="@{'/images/' + ${medication.code} + '.jpg'}" alt="Image"/>
+                    <td><a th:if="${unlockMedication}"
+                           th:href="@{'/drone/' + ${drone.id} + '?action=add&code=' + ${medication.code}}"> ADD </a>
+                    </td>
+                    <td th:text="${loads.get(medication) ?: 0}"/>
+                    <td><a th:if="${loads.get(medication) > 0 && unlockMedication}"
+                           th:href="@{'/drone/' + ${drone.id} + '?action=remove&code=' + ${medication.code}}"> REMOVE
+                    </a></td>
+                </tr>
+            </table>
+        </div>
 
 </main>
 <!-- /.container -->
 
-<script type="text/javascript" th:src="@{webjars/bootstrap/4.2.1/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
