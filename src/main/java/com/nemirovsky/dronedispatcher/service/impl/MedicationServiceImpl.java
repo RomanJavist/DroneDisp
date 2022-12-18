@@ -18,11 +18,11 @@ public class MedicationServiceImpl implements MedicationService {
 
     @Override
     public List<Medication> getAllMedications() {
-        return null;
+        return medicationJpaRepository.findAll();
     }
 
     @Override
     public Medication getByCode(String code) {
-        return null;
+        return medicationJpaRepository.findById(code).orElse(null);
     }
 }

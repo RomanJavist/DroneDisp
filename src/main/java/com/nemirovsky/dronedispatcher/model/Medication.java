@@ -15,6 +15,4 @@ public class Medication {
     private String code;
     private String name;
     private Integer weight;
-    private String image;
-
 }

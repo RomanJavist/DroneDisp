@@ -1,8 +1,6 @@
 package com.nemirovsky.dronedispatcher.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Load {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @OneToOne
     private Drone drone;
     @OneToOne

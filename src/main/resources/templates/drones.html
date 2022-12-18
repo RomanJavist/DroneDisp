@@ -39,7 +39,7 @@
         </tr>
         </thead>
         <tr th:each="drone: ${drones}">
-            <td><a th:href="@{'/drone/' + ${drone.id}}" th:text="${drone.id}"/></td>
+            <td><a th:href="@{'/drone/' + ${drone.id}}" th:text="${drone.id}"/>
             <td th:text="${drone.type.displayValue}"/>
             <td th:text="${drone.load}"/>
             <td th:text="${drone.loadMax}"/>

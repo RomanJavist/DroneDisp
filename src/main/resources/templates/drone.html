@@ -39,7 +39,7 @@
                             th:text="${type.displayValue}"
                             th:selected="${drone.type.displayValue}">
                     </option>
-                </select>                <label>Load max:</label>
+                </select> <label>Load max:</label>
                 <input required type="number" class="form-control" th:field="*{loadMax}"/><br/>
                 <label>Load:</label>
                 <input required type="number" class="form-control" th:field="*{load}"/><br/>
@@ -53,11 +53,37 @@
                             th:selected="${drone.state.displayValue}">
                     </option>
                 </select>
-                <input type="hidden" name="save" value="1"/><br/>
+                <input type="hidden" name="action" value="save"/><br/>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
         </form>
-    </div>
+        <h2><span th:if="${errMsg}" th:text="${errMsg}"></span></h2>
+        <div class="starter-template">
+            <table class="table table-dark table-hover align-middle">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Weight (g)</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Loaded</th>
+                    <th scope="col"></th>
+                </tr>
+                </thead>
+                <tr th:each="medication: ${medications}">
+                    <td th:text="${medication.code}"/>
+                    <td th:text="${medication.name}"/>
+                    <td th:text="${medication.weight}"/>
+                    <td><img th:src="@{'/images/' + ${medication.code} + '.jpg'}" alt="Image"/>
+                    <td><a th:href="@{'/drone/' + ${drone.id} + '?action=add&code=' + ${medication.code}}"> ADD </a></td>
+                    <td th:text="${loads.get(medication) ?: 0}"/>
+                    <td><a th:if="${loads.get(medication) > 0}"
+                           th:href="@{'/drone/' + ${drone.id} + '?action=remove&code=' + ${medication.code}}"> REMOVE
+                    </a></td>
+                </tr>
+            </table>
+        </div>
 
 </main>
 <!-- /.container -->
