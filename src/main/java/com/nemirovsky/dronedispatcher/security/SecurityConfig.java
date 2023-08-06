@@ -34,7 +34,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().requestMatchers("/**").hasRole("USER").and().formLogin();
+        http
+                .authorizeHttpRequests()
+                .requestMatchers("/**")
+                .hasRole("USER")
+                .and()
+                .formLogin()
+                .defaultSuccessUrl("/drones", true);;
         return http.build();
     }
 
