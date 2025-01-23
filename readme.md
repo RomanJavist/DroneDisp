@@ -30,6 +30,6 @@ To test this project locally:
 $ mvn spring-boot:run
 
 ```
-* Open "http://localhost:8080/drones" in your browser
+* Open "http://localhost:8082/drones" in your browser
 * Use user1:password1 credentials
 * Enjoy
