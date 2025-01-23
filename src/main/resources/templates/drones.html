@@ -31,20 +31,28 @@
         <thead class="thead-dark">
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">Image</th>
             <th scope="col">Type</th>
             <th scope="col">Load</th>
             <th scope="col">Max. load</th>
             <th scope="col">Battery, %</th>
             <th scope="col">State</th>
+<!--            добавил колонку с изображениями-->
         </tr>
         </thead>
         <tr th:each="drone: ${drones}">
             <td><a th:href="@{'/drone/' + ${drone.id}}" th:text="${drone.id}"/>
+            <td>
+                <img th:src="@{'/images/' + ${drone.type.name().toLowerCase()} + '.jpg'}"
+                     alt="Drone Image"
+                     style="max-width: 100px; max-height: 100px;"/>
+            </td>
             <td th:text="${drone.type.displayValue}"/>
             <td th:text="${drone.load}"/>
             <td th:text="${drone.loadMax}"/>
             <td th:text="${drone.batteryLeft}"/>
             <td th:text="${drone.state.displayValue}"/>
+
         </tr>
     </table>
     <div class="starter-template">

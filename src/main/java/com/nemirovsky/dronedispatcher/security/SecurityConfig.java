@@ -11,10 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
+@Configuration // конфигурационный класс, источник бинов
+@EnableWebSecurity // безопасность,
 public class SecurityConfig {
-
+    // определение пользователей в памяти, доступно для аутентификации, кодиование паролей
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {
         UserDetails user1 = User.withUsername("user1")
@@ -31,7 +31,7 @@ public class SecurityConfig {
                 .build();
         return new InMemoryUserDetailsManager(user1, user2, admin);
     }
-
+    // безопасность запросов, базовая аутентификация, нужна роль юзер, перенаправление
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -42,10 +42,11 @@ public class SecurityConfig {
                 .hasRole("USER")
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/drones", true);;
+                .defaultSuccessUrl("/drones", true);
+        ;
         return http.build();
     }
-
+    // хэширование паролей
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

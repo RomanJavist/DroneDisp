@@ -12,11 +12,18 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
 
-@RestController
-@RequestMapping("/")
-@RequiredArgsConstructor
+
+/**
+ * Контроллер для управления дронами.
+ * Содержит различные эндпоинты.
+ */
+
+@RestController // Класс является рест-контроллером. Возвращает данные
+@RequestMapping("/") // Указывает изначальный url для контроллера
+@RequiredArgsConstructor // Создает конструктор
 public class DroneController {
 
+    // Сервисы для работы с дронами, медикаментами и их загрузкой
     @Autowired
     private DroneService droneService;
 
@@ -26,8 +33,10 @@ public class DroneController {
     @Autowired
     private LoadService loadService;
 
+    // заголовок для передачи на страницу с дронами
     private final String helloString = "DroneDispatcher v1.0";
 
+    // получаем список дронов
     @GetMapping("drones")
     public ModelAndView getAllDrones(@RequestParam(required = false, name = "available") boolean available) {
 
@@ -44,6 +53,7 @@ public class DroneController {
         return mav;
     }
 
+    // управление данными одного из дронов
     @GetMapping("drone/{id}")
     public ModelAndView getDrone(@PathVariable String id,
                                  @RequestParam(required = false, name = "action") String action,
@@ -54,7 +64,7 @@ public class DroneController {
         String errMsg = null;
 
         if (action != null) {
-
+            //проверка батареи, состояния загрузки, загрузка, удаление медикамента
             switch (action) {
                 case "save" -> {
                     if (newDrone.getBatteryLeft() > 100 || newDrone.getBatteryLeft() < 0) {
@@ -125,7 +135,7 @@ public class DroneController {
 
         return mav;
     }
-
+// создание нового дрона
     @GetMapping("drone-new")
     public ModelAndView newDrone(String errMsg) {
 

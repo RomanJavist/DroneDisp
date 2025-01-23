@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Load {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // первичный ключ
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // автогенерация
     private long id;
-    @OneToOne
+    @OneToOne // вид связи один к одному
     private Drone drone;
     @OneToOne
     private Medication medication;
